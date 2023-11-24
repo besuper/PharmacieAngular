@@ -1,0 +1,60 @@
+<div>
+	<h3>Rechercher un patient</h3>
+
+	<div class="d-flex flex-row justify-content-between">
+		<form class="d-flex flex-row gap-2 col-4" #f="ngForm" (ngSubmit)="onSearch(f.value)">
+			<input type="text" class="form-control" ngModel name="nom">
+			<button type="submit" class="btn btn-primary">Rechercher</button>
+		</form>
+
+		<!--<button type="submit" class="btn btn-primary" (click)="onNewPatient()">Ajouter un patient</button>-->
+		<app-newpatient></app-newpatient>
+	</div>
+</div>
+
+<ng-container *ngIf="patients">
+	<ng-container *ngIf="patients.length > 0 else inconnu">
+		<hr/>
+		<h3 class="pt-4">Patients trouvé : </h3>
+
+		<table class="table table-striped">
+			<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">NSS</th>
+				<th scope="col">Nom</th>
+				<th scope="col">Prénom</th>
+				<th scope="col">Date de naissance</th>
+				<th scope="col">Modifier</th>
+				<th scope="col">Supprimer</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr *ngFor="let patient of patients">
+				<td>{{patient.id}}</td>
+				<td>{{patient.nss}}</td>
+				<td>{{patient.nom}}</td>
+				<td>{{patient.prenom}}</td>
+				<td>{{patient.dateNaissance}}</td>
+				<td>
+					<button (click)=onEdit(patient) class="btn btn-primary">
+						<span class="fa fa-edit"></span>
+					</button>
+				</td>
+				<td>
+					<button (click)=onDelete(patient) class="btn btn-danger">
+						<span class="fa fa-trash-o"></span>
+					</button>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</ng-container>
+
+	<ng-template #inconnu>
+		<hr/>
+
+		<h3 class="pt-4">Nom inconnu</h3>
+	</ng-template>
+
+</ng-container>

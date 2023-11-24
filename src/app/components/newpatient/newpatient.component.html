@@ -1,0 +1,75 @@
+<button type="button" class="btn btn-primary" (click)="OnOpenModal()">
+	Ajouter un patient
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="createPatientModal" tabindex="-1" aria-labelledby="createPatientModalLabel"
+	 aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="createPatientModalLabel">Nouveau patient</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form [formGroup]="patientFormGroup" *ngIf="patientFormGroup">
+					<div class="form-group">
+						<label>Nom</label>
+						<input type="text" class="form-control" formControlName="nom"
+							   [ngClass]="{'is-invalid': submitted && patientFormGroup.controls.nom.errors}">
+
+						<div *ngIf="submitted && patientFormGroup.controls.nom.errors" class="invalid-feedback">
+							<div *ngIf="patientFormGroup.controls.nom.errors.required">
+								Nom obligatoire
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label>Prénom</label>
+						<input type="text" class="form-control" formControlName="prenom"
+							   [ngClass]="{'is-invalid': submitted && patientFormGroup.controls.prenom.errors}">
+
+						<div *ngIf="submitted && patientFormGroup.controls.prenom.errors" class="invalid-feedback">
+							<div *ngIf="patientFormGroup.controls.prenom.errors.required">
+								Prénom obligatoire
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label>NSS</label>
+						<input type="text" class="form-control" formControlName="nss"
+							   [ngClass]="{'is-invalid': submitted && patientFormGroup.controls.nss.errors}">
+
+						<div *ngIf="submitted && patientFormGroup.controls.nss.errors" class="invalid-feedback">
+							<div *ngIf="patientFormGroup.controls.nss.errors.required">
+								Prénom obligatoire
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label>Date de naissance</label>
+						<input type="text" class="form-control" formControlName="dateNaissance"
+							   [ngClass]="{'is-invalid': submitted && patientFormGroup.controls.dateNaissance.errors}">
+
+						<div *ngIf="submitted && patientFormGroup.controls.dateNaissance.errors"
+							 class="invalid-feedback">
+							<div *ngIf="patientFormGroup.controls.dateNaissance.errors.required">
+								Date de naissance obligatoire
+							</div>
+						</div>
+					</div>
+
+					<!--<button (click)="onSavePatient()" class="btn btn-success">
+						Créer
+					</button>-->
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success" (click)="onSavePatient()">Céer</button>
+			</div>
+		</div>
+	</div>
+</div>
