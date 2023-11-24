@@ -1,0 +1,8 @@
+<div id="alerts" class="fixed-top col-3 ms-auto pe-4 pt-4">
+	<div *ngFor="let alert of alerts">
+		<div class="alert alert-{{alert.type}} alert-dismissible fade show" role="alert">
+			{{alert.message}}
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	</div>
+</div>

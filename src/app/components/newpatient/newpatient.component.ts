@@ -25,7 +25,7 @@ export class NewpatientComponent implements OnInit {
 	}
 
 	OnOpenModal() {
-		if(this.modal == undefined) {
+		if (this.modal == undefined) {
 			// @ts-ignore
 			this.modal = new bootstrap.Modal("#createPatientModal");
 		}
@@ -42,7 +42,7 @@ export class NewpatientComponent implements OnInit {
 
 		this.patientService.save(this.patientFormGroup?.value).subscribe({
 			next: () => {
-				// TODO: Show success
+				(window as any).sendAlert("success", "Patient créé");
 
 				this.modal.hide();
 			}
