@@ -18,17 +18,9 @@ export class PatientsComponent {
 	onSearch(value: Patient) {
 		this.patientsService.searchPatients(value.nom).subscribe({
 			next: data => {
-				this.patients = data
+				this.patients = data;
 			}
 		});
-	}
-
-	onNewPatient() {
-		this.router.navigateByUrl('newPatient');
-	}
-
-	onEdit(patient: Patient) {
-
 	}
 
 	onDelete(patient: Patient) {
@@ -40,6 +32,16 @@ export class PatientsComponent {
 					this.onSearch(patient);
 				}
 			})
+		}
+	}
+
+	onPatientUpdate() {
+		if (this.patients == null) {
+			return;
+		}
+
+		if (this.patients.length > 0) {
+			this.onSearch(this.patients[0]);
 		}
 	}
 

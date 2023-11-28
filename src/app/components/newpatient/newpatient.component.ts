@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {PatientsService} from "../../servicies/patients.servicies";
+import {Patient} from "../../entities/patient.entities";
 
 @Component({
 	selector: 'app-newpatient',
@@ -11,6 +12,8 @@ export class NewpatientComponent implements OnInit {
 	patientFormGroup?: FormGroup;
 	submitted = false;
 	modal: any;
+
+	@Input("patients") patients?: Patient[];
 
 	constructor(private fb: FormBuilder, private patientService: PatientsService) {
 	}

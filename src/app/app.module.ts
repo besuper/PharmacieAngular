@@ -9,7 +9,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {PatientsComponent} from './components/patients/patients.component';
 import {NewpatientComponent} from "./components/newpatient/newpatient.component";
-import { AlertComponent } from './components/alert/alert.component';
+import {AlertComponent} from './components/alert/alert.component';
+import {EditpatientComponent} from "./components/editpatient/editpatient.component";
 
 @NgModule({
 	declarations: [
@@ -18,7 +19,8 @@ import { AlertComponent } from './components/alert/alert.component';
 		HomeComponent,
 		PatientsComponent,
 		NewpatientComponent,
-  AlertComponent,
+		AlertComponent,
+		EditpatientComponent,
 	],
 	imports: [
 		BrowserModule,

@@ -37,9 +37,7 @@
 				<td>{{patient.prenom}}</td>
 				<td>{{patient.dateNaissance}}</td>
 				<td>
-					<button (click)=onEdit(patient) class="btn btn-primary">
-						<span class="fa fa-edit"></span>
-					</button>
+					<app-editpatient [idPatient]="patient.id" (updatedPatient)="onPatientUpdate()"></app-editpatient>
 				</td>
 				<td>
 					<button (click)=onDelete(patient) class="btn btn-danger">

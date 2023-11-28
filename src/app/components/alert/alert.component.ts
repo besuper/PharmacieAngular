@@ -10,7 +10,19 @@ export class AlertComponent implements OnInit {
 
 	ngOnInit(): void {
 		(window as any).sendAlert = (type: string, message: string) => {
-			this.alerts.push(new Alert(type, message));
+			let icon = "default";
+
+			switch (type) {
+				case "success":
+					icon = "check";
+					break;
+				case "danger":
+				case "warning":
+					icon = "exclamation-circle";
+					break;
+			}
+
+			this.alerts.push(new Alert(type, icon, message));
 
 			setTimeout(() => {
 				this.alerts.pop();
@@ -21,6 +33,6 @@ export class AlertComponent implements OnInit {
 
 class Alert {
 
-	constructor(public type: string, public message: string) {
+	constructor(public type: string, public icon: string, public message: string) {
 	}
 }
