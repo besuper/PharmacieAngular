@@ -1,0 +1,66 @@
+<div>
+	<h3>Rechercher une prescription</h3>
+
+	<div class="d-flex flex-row justify-content-between">
+		<form class="d-flex flex-row gap-2 col-6" #f="ngForm" (ngSubmit)="onSearch(f.value)">
+			<div class="row">
+				<div class="col">
+					<input type="date" ngModel name="dateStart" class="form-control" placeholder="Date de début">
+				</div>
+				<div class="col">
+					<input type="date" ngModel name="dateEnd" class="form-control" placeholder="Date de fin">
+				</div>
+
+				<div class="col">
+					<button type="submit" class="btn btn-primary">Rechercher</button>
+				</div>
+			</div>
+		</form>
+
+		<!--<button type="submit" class="btn btn-primary" (click)="onNewPatient()">Ajouter un patient</button>-->
+		<!--<app-newpatient></app-newpatient>-->
+	</div>
+</div>
+
+<ng-container *ngIf="prescriptions">
+	<ng-container *ngIf="prescriptions.length > 0 else inconnu">
+		<hr/>
+		<h3 class="pt-4">Prescriptions trouvé : </h3>
+
+		<table class="table table-striped">
+			<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">Date</th>
+				<th scope="col">Medecin</th>
+				<th scope="col">Patient</th>
+				<!--<th scope="col">Modifier</th>
+				<th scope="col">Supprimer</th>-->
+			</tr>
+			</thead>
+			<tbody>
+			<tr *ngFor="let prescription of prescriptions">
+				<td>{{prescription.id}}</td>
+				<td>{{prescription.datePrescription}}</td>
+				<td>{{prescription.medecin.nom}}</td>
+				<td>{{prescription.patient.nom}}</td>
+				<!--<td>
+					<app-editpatient [idPatient]="patient.id" (updatedPatient)="onPatientUpdate()"></app-editpatient>
+				</td>
+				<td>
+					<button (click)=onDelete(patient) class="btn btn-danger">
+						<span class="fa fa-trash-o"></span>
+					</button>
+				</td>-->
+			</tr>
+			</tbody>
+		</table>
+	</ng-container>
+
+	<ng-template #inconnu>
+		<hr/>
+
+		<h3 class="pt-4">Aucune prescription entre ces 2 dates</h3>
+	</ng-template>
+
+</ng-container>
