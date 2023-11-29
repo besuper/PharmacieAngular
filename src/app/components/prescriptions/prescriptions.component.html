@@ -32,6 +32,7 @@
 			<tr>
 				<th scope="col">ID</th>
 				<th scope="col">Date</th>
+				<th scope="col">Montant</th>
 				<th scope="col">Medecin</th>
 				<th scope="col">Patient</th>
 				<!--<th scope="col">Modifier</th>
@@ -41,7 +42,8 @@
 			<tbody>
 			<tr *ngFor="let prescription of prescriptions">
 				<td>{{prescription.id}}</td>
-				<td>{{prescription.datePrescription}}</td>
+				<td>{{prescription.datePrescription|date:"dd-MM-yyyy"}}</td>
+				<td>{{prescription.cout_total}}€</td>
 				<td>{{prescription.medecin.nom}}</td>
 				<td>{{prescription.patient.nom}}</td>
 				<!--<td>

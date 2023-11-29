@@ -35,9 +35,11 @@
 				<td>{{patient.nss}}</td>
 				<td>{{patient.nom}}</td>
 				<td>{{patient.prenom}}</td>
-				<td>{{patient.dateNaissance}}</td>
+				<td>{{patient.dateNaissance|date:"dd-MM-yyyy"}}</td>
 				<td>
-					<app-editpatient [idPatient]="patient.id" (updatedPatient)="onPatientUpdate()"></app-editpatient>
+					<button (click)=onEdit(patient) class="btn btn-primary">
+						<span class="fa fa-edit"></span>
+					</button>
 				</td>
 				<td>
 					<button (click)=onDelete(patient) class="btn btn-danger">

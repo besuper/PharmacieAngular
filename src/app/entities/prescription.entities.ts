@@ -6,4 +6,5 @@ export interface Prescription {
 	datePrescription: Date;
 	medecin: Medecin;
 	patient: Patient;
+	cout_total: number;
 }

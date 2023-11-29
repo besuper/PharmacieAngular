@@ -23,6 +23,10 @@ export class PatientsComponent {
 		});
 	}
 
+	onEdit(patient: Patient) {
+		this.router.navigateByUrl('editPatient/' + patient.id);
+	}
+
 	onDelete(patient: Patient) {
 		let confirmation = confirm('Etes vous sûr de vouloir supprimer ?');
 
@@ -32,16 +36,6 @@ export class PatientsComponent {
 					this.onSearch(patient);
 				}
 			})
-		}
-	}
-
-	onPatientUpdate() {
-		if (this.patients == null) {
-			return;
-		}
-
-		if (this.patients.length > 0) {
-			this.onSearch(this.patients[0]);
 		}
 	}
 

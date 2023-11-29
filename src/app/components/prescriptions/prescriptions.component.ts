@@ -20,7 +20,9 @@ export class PrescriptionsComponent {
 	onSearch(value: any) {
 		this.prescriptionsService.searchPrescriptions(value.dateStart, value.dateEnd).subscribe({
 			next: data => {
-				this.prescriptions = data;
+				this.prescriptions = data.sort((a, b) => {
+					return new Date(b.datePrescription).getTime() - new Date(a.datePrescription).getTime();
+				});
 			}
 		});
 	}
