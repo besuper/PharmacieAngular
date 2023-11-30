@@ -1,1 +1,71 @@
-<p>editprescription works!</p>
+<h3>Informations de la prescription</h3>
+
+<form [formGroup]="prescriptionFormGroup" *ngIf="prescriptionFormGroup">
+	<div class="form-group">
+		<label>ID Prescription</label>
+		<input type="text" class="form-control" formControlName="id" readonly>
+	</div>
+
+	<div class="form-group mt-2">
+		<label>Date</label>
+		<input type="date" class="form-control" formControlName="date" readonly>
+	</div>
+
+	<div class="form-group mt-2">
+		<label>Medecin</label>
+		<input type="text" class="form-control" formControlName="medecin" readonly>
+	</div>
+
+	<div class="form-group mt-2">
+		<label>Patient</label>
+		<input type="text" class="form-control" formControlName="patient" readonly>
+	</div>
+
+	<div class="form-group mt-2">
+		<label>Cout total (€)</label>
+		<input type="number" class="form-control" formControlName="cout_total" readonly>
+	</div>
+</form>
+
+<hr/>
+
+<div class="d-flex justify-content-between">
+	<h3>Médicaments</h3>
+	<button class="btn btn-primary">Ajouter</button>
+</div>
+
+<ng-container *ngIf="infos">
+	<ng-container *ngIf="infos.length>0 else vide">
+		<table class="table table-striped">
+			<thead>
+			<th>Medicament</th>
+			<th>Quantite</th>
+			<th>Prix unitaire</th>
+			<th>Total</th>
+			<th>Modifier</th>
+			<th>Supprimer</th>
+			</thead>
+			<tbody>
+			<tr *ngFor="let info of infos">
+				<td>{{info.medicament.nom}}</td>
+				<td>{{info.quantite}}</td>
+				<td>{{info.medicament.prixUnitaire}}</td>
+				<td>{{(info.medicament.prixUnitaire * info.quantite).toFixed(2)}}€</td>
+				<td>
+					<button class="btn btn-primary">
+						<span class="fa fa-edit"></span>
+					</button>
+				</td>
+				<td>
+					<button class="btn btn-danger">
+						<span class="fa fa-trash"></span>
+					</button>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</ng-container>
+	<ng-template #vide>
+		Aucun médicament pour cette prescription
+	</ng-template>
+</ng-container>

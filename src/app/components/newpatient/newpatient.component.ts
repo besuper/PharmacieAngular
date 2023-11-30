@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {PatientsService} from "../../servicies/patients.servicies";
 import {Patient} from "../../entities/patient.entities";
@@ -14,6 +14,7 @@ export class NewpatientComponent implements OnInit {
 	modal: any;
 
 	@Input("patients") patients?: Patient[];
+	@Output("addedPatient") addedPatient: EventEmitter<any> = new EventEmitter<any>();
 
 	constructor(private fb: FormBuilder, private patientService: PatientsService) {
 	}
@@ -48,6 +49,8 @@ export class NewpatientComponent implements OnInit {
 				(window as any).sendAlert("success", "Patient créé");
 
 				this.modal.hide();
+
+				this.addedPatient.emit(this.patientFormGroup?.value);
 			}
 		});
 	}

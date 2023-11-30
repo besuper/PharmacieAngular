@@ -29,7 +29,7 @@ export class PrescriptionsService {
 		return this.http.delete<void>(this.host + '/prescriptions/' + prescription.id);
 	}
 
-	save(prescription: Prescription): Observable<Prescription> {
+	save(prescription: any): Observable<Prescription> {
 		return this.http.post<Prescription>(this.host + '/prescriptions', prescription);
 	}
 

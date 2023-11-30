@@ -36,6 +36,10 @@
 							<div *ngIf="prescriptionFormGroup.controls.medecin.errors.required">
 								Medecin obligatoire
 							</div>
+
+							<div *ngIf="prescriptionFormGroup.controls.medecin.errors.not_medecin">
+								Medecin introuvable
+							</div>
 						</div>
 					</div>
 

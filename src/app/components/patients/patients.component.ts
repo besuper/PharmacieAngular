@@ -33,10 +33,18 @@ export class PatientsComponent {
 		if (confirmation) {
 			this.patientsService.deletePatient(patient).subscribe({
 				next: () => {
-					this.onSearch(patient);
+					//this.onSearch(patient);
+
+					let index = this.patients?.indexOf(patient);
+
+					this.patients?.splice(index!, 1);
 				}
 			})
 		}
+	}
+
+	onAddedPatient(data: Patient) {
+		this.patients?.push(data);
 	}
 
 }

@@ -74,6 +74,7 @@
 			<th>Medecin</th>
 			<th>Montant</th>
 			<th>Modifier</th>
+			<th>Supprimer</th>
 			</thead>
 			<tbody>
 			<tr *ngFor="let pres of prescriptions">
@@ -84,6 +85,11 @@
 				<td>
 					<button (click)=editPrescription(pres) class="btn btn-primary">
 						<span class="fa fa-edit"></span>
+					</button>
+				</td>
+				<td>
+					<button (click)=deletePrescription(pres) class="btn btn-danger">
+						<span class="fa fa-trash"></span>
 					</button>
 				</td>
 			</tr>

@@ -77,4 +77,19 @@ export class EditpatientComponent implements OnInit {
 	editPrescription(prescription: Prescription): void {
 		this.router.navigateByUrl("/prescription/" + prescription.id);
 	}
+
+	deletePrescription(prescription: Prescription) {
+		let confirmation = confirm('Etes vous sûr de vouloir supprimer ?');
+
+		if (confirmation) {
+			this.prescriptionService.deletePrescription(prescription).subscribe({
+				next: () => {
+					// TODO: Remove the prescription
+				},
+				error: (err) => {
+					(window as any).sendAlert("danger", err);
+				}
+			})
+		}
+	}
 }
