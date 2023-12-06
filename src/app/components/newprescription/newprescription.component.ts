@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Patient} from "../../entities/patient.entities";
 import {PrescriptionsService} from "../../servicies/prescription.servicies";
@@ -17,9 +17,11 @@ export class NewprescriptionComponent implements OnInit {
 	submitted = false;
 	modal: any;
 
-	@Input("patient") patient$?: Observable<Patient>;
 	patient?: Patient;
 	medecins: Medecin[] = [];
+
+	@Input("patient") patient$?: Observable<Patient>;
+	@Output("addedPrescription") addedPrescription: EventEmitter<any> = new EventEmitter<any>();
 
 	constructor(private fb: FormBuilder,
 				private prescriptionService: PrescriptionsService,
@@ -95,12 +97,17 @@ export class NewprescriptionComponent implements OnInit {
 		let medecin: Medecin | undefined = this.findMedecin();
 
 		if (medecin == undefined) {
-			this.prescriptionFormGroup?.controls.medecin.setErrors({'not_medecin': true});
+			this.prescriptionFormGroup?.controls.medecin.setErrors({'not': true});
 			return;
 		}
 
-		if(!this.patient){
+		if (!this.patient) {
 			// TODO: Find patient
+		}
+
+		if (this.patient == undefined) {
+			this.prescriptionFormGroup?.controls.patient.setErrors({'not': true});
+			return;
 		}
 
 		let values = this.prescriptionFormGroup?.value;
@@ -115,12 +122,12 @@ export class NewprescriptionComponent implements OnInit {
 		};
 
 		this.prescriptionService.save(body).subscribe({
-			next: () => {
+			next: (prescription) => {
 				(window as any).sendAlert("success", "Prescription créé");
 
 				this.modal.hide();
 
-				// TODO: Add the prescription in list
+				this.addedPrescription.emit(prescription);
 			}
 		});
 	}

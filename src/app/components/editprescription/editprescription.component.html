@@ -31,7 +31,7 @@
 
 <div class="d-flex justify-content-between">
 	<h3>Médicaments</h3>
-	<button class="btn btn-primary">Ajouter</button>
+	<app-newinfo [prescription]="prescription" (addedInfo)="onAddedInfo($event)"></app-newinfo>
 </div>
 
 <ng-container *ngIf="infos">
@@ -42,25 +42,13 @@
 			<th>Quantite</th>
 			<th>Prix unitaire</th>
 			<th>Total</th>
-			<th>Modifier</th>
-			<th>Supprimer</th>
 			</thead>
 			<tbody>
 			<tr *ngFor="let info of infos">
 				<td>{{info.medicament.nom}}</td>
 				<td>{{info.quantite}}</td>
-				<td>{{info.medicament.prixUnitaire}}</td>
+				<td>{{info.medicament.prixUnitaire}}€</td>
 				<td>{{(info.medicament.prixUnitaire * info.quantite).toFixed(2)}}€</td>
-				<td>
-					<button class="btn btn-primary">
-						<span class="fa fa-edit"></span>
-					</button>
-				</td>
-				<td>
-					<button class="btn btn-danger">
-						<span class="fa fa-trash"></span>
-					</button>
-				</td>
 			</tr>
 			</tbody>
 		</table>

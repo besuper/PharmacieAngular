@@ -18,7 +18,6 @@ export class EditpatientComponent implements OnInit {
 	idPatient: number = 1;
 
 	patient: Subject<Patient> = new Subject<Patient>();
-
 	prescriptions?: Prescription[];
 
 	constructor(
@@ -84,12 +83,18 @@ export class EditpatientComponent implements OnInit {
 		if (confirmation) {
 			this.prescriptionService.deletePrescription(prescription).subscribe({
 				next: () => {
-					// TODO: Remove the prescription
+					(window as any).sendAlert("success", "Prescription supprimée");
+
+					this.prescriptions?.splice(this.prescriptions?.indexOf(prescription), 1);
 				},
 				error: (err) => {
 					(window as any).sendAlert("danger", err);
 				}
 			})
 		}
+	}
+
+	onAddedPrescription(prescription: Prescription) {
+		this.prescriptions?.push(prescription);
 	}
 }

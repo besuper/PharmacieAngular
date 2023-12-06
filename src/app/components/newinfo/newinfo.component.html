@@ -1,0 +1,59 @@
+<button type="button" class="btn btn-primary" (click)="onOpenModal()">
+	Ajouter
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="createInfoModal" tabindex="-1" aria-labelledby="createInfoModalLabel"
+	 aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="createInfoModalLabel">Nouveau médicament</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form [formGroup]="infoFormGroup" *ngIf="infoFormGroup">
+					<div class="form-group">
+						<label>Médicament</label>
+
+						<select class="form-select" formControlName="medicament" aria-label="Default select example"
+								[ngClass]="{'is-invalid': submitted && infoFormGroup.controls.medicament.errors}">
+							<option *ngFor="let medoc of medicaments" [value]="medoc.id">
+								{{medoc.nom}}
+							</option>
+						</select>
+
+						<div *ngIf="submitted && infoFormGroup.controls.medicament.errors" class="invalid-feedback">
+							<div *ngIf="infoFormGroup.controls.medicament.errors.min">
+								Médicament obligatoire
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label>Quantité</label>
+						<input type="text" class="form-control" formControlName="quantite"
+							   [ngClass]="{'is-invalid': submitted && infoFormGroup.controls.quantite.errors}">
+
+						<div *ngIf="submitted && infoFormGroup.controls.quantite.errors" class="invalid-feedback">
+							<div *ngIf="infoFormGroup.controls.quantite.errors.required">
+								Quantite obligatoire
+							</div>
+
+							<div *ngIf="infoFormGroup.controls.quantite.errors.min">
+								Quantite minimum a 1
+							</div>
+						</div>
+					</div>
+
+					<!--<button (click)="onSavePatient()" class="btn btn-success">
+						Créer
+					</button>-->
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-success" (click)="onSaveInfo()">Céer</button>
+			</div>
+		</div>
+	</div>
+</div>

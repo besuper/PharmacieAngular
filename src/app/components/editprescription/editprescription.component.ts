@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Prescription} from "../../entities/prescription.entities";
-import {PatientsService} from "../../servicies/patients.servicies";
 import {PrescriptionsService} from "../../servicies/prescription.servicies";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -19,7 +18,7 @@ export class EditprescriptionComponent implements OnInit {
 
 	prescriptionFormGroup?: FormGroup;
 
-	infos: Info[] = [];
+	infos?: Info[];
 
 	constructor(private infoService: InfosService,
 				private prescriptionService: PrescriptionsService,
@@ -56,6 +55,21 @@ export class EditprescriptionComponent implements OnInit {
 			error: (err) => {
 				(window as any).sendAlert("danger", err);
 			}
+		});
+	}
+
+	onAddedInfo(info: Info) {
+		this.infos?.push(info);
+
+		// Mettre a jour le prix total de la prescription
+		let new_cout_total = 0;
+
+		for(let i of this.infos!) {
+			new_cout_total += i.medicament.prixUnitaire * i.quantite;
+		}
+
+		this.prescriptionFormGroup?.patchValue({
+			"cout_total": new_cout_total.toFixed(2)
 		});
 	}
 

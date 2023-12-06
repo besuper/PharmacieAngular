@@ -5,20 +5,17 @@ import {Observable} from 'rxjs';
 import {Patient} from "../entities/patient.entities";
 import {Medecin} from "../entities/medecin.entities";
 import {Info} from "../entities/info.entities";
+import {Medicament} from "../entities/medicament.entities";
 
 @Injectable({providedIn: "root"})
 
-export class InfosService {
+export class MedicamentsServicies {
 	private host = environment.host;
 
 	constructor(private http: HttpClient) {
 	}
 
-	save(info: any): Observable<Info> {
-		return this.http.post<Info>(this.host + '/infos', info);
-	}
-
-	getPrescriptionInfos(idPrescription: number): Observable<Info[]> {
-		return this.http.get<Info[]>(this.host + '/infos/' + idPrescription);
+	getMedicaments(): Observable<Medicament[]> {
+		return this.http.get<Medicament[]>(this.host + '/medicaments/all');
 	}
 }
