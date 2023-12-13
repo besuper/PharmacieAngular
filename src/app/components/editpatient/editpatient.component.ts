@@ -17,7 +17,8 @@ export class EditpatientComponent implements OnInit {
 	submitted = false;
 	idPatient: number = 1;
 
-	patient: Subject<Patient> = new Subject<Patient>();
+	//patient: Subject<Patient> = new Subject<Patient>();
+	patient?: Patient;
 	prescriptions?: Prescription[];
 
 	constructor(
@@ -32,7 +33,8 @@ export class EditpatientComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.patientService.getPatient(this.idPatient).subscribe(patient => {
-			this.patient.next(patient);
+			//this.patient.next(patient);
+			this.patient = patient;
 
 			this.patientFormGroup = this.fb.group({
 				id: [patient.id, Validators.required],

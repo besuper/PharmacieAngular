@@ -17,11 +17,10 @@ export class NewprescriptionComponent implements OnInit {
 	submitted = false;
 	modal: any;
 
-	patient?: Patient;
 	medecins: Medecin[] = [];
 
-	@Input("patient") patient$?: Observable<Patient>;
-	@Output("addedPrescription") addedPrescription: EventEmitter<any> = new EventEmitter<any>();
+	@Input() patient?: Patient;
+	@Output() addedPrescription: EventEmitter<any> = new EventEmitter<any>();
 
 	constructor(private fb: FormBuilder,
 				private prescriptionService: PrescriptionsService,
@@ -38,28 +37,22 @@ export class NewprescriptionComponent implements OnInit {
 			}
 		})
 
-		if (this.patient$) {
-			this.patient$.subscribe({
-				next: (patient) => {
-					this.patient = patient;
-
-					this.prescriptionFormGroup = this.fb.group({
-						datePrescription: [new Date().toISOString().substring(0, 10), Validators.required],
-						medecin: ['', Validators.required],
-						patient: new FormControl({
-							value: `${patient.nom} ${patient.prenom}`,
-							disabled: true
-						}, Validators.required),
-					});
-				}
-			})
+		if (this.patient) {
+			this.prescriptionFormGroup = this.fb.group({
+				datePrescription: [new Date().toISOString().substring(0, 10), Validators.required],
+				medecin: ['', Validators.required],
+				patient: new FormControl({
+					value: `${this.patient.nom} ${this.patient.prenom}`,
+					disabled: true
+				}, Validators.required),
+			});
+		} else {
+			this.prescriptionFormGroup = this.fb.group({
+				datePrescription: [new Date().toISOString().substring(0, 10), Validators.required],
+				medecin: ['', Validators.required],
+				patient: ["", Validators.required],
+			});
 		}
-
-		this.prescriptionFormGroup = this.fb.group({
-			datePrescription: [new Date().toISOString().substring(0, 10), Validators.required],
-			medecin: ['', Validators.required],
-			patient: ["", Validators.required],
-		});
 	}
 
 	OnOpenModal() {

@@ -62,9 +62,11 @@
 
 <div class="d-flex justify-content-between">
 	<h3>Prescriptions</h3>
-	<app-newprescription [patient]="this.patient.asObservable()" (addedPrescription)="onAddedPrescription($event)">
 
-	</app-newprescription>
+	<ng-container *ngIf="this.patient">
+		<app-newprescription [patient]="this.patient" (addedPrescription)="onAddedPrescription($event)">
+		</app-newprescription>
+	</ng-container>
 </div>
 
 <ng-container *ngIf="prescriptions">
