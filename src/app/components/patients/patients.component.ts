@@ -38,6 +38,8 @@ export class PatientsComponent {
 					let index = this.patients?.indexOf(patient);
 
 					this.patients?.splice(index!, 1);
+
+					(window as any).sendAlert("success", "Patient supprimé !")
 				}
 			})
 		}

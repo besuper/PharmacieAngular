@@ -7,6 +7,7 @@
 				<div class="col">
 					<input type="date" ngModel name="dateStart" class="form-control" placeholder="Date de début">
 				</div>
+
 				<div class="col">
 					<input type="date" ngModel name="dateEnd" class="form-control" placeholder="Date de fin">
 				</div>
@@ -17,8 +18,6 @@
 			</div>
 		</form>
 
-		<!--<button type="submit" class="btn btn-primary" (click)="onNewPatient()">Ajouter un patient</button>-->
-		<!--<app-newpatient></app-newpatient>-->
 		<app-newprescription></app-newprescription>
 	</div>
 </div>
@@ -36,8 +35,8 @@
 				<th scope="col">Montant</th>
 				<th scope="col">Medecin</th>
 				<th scope="col">Patient</th>
-				<!--<th scope="col">Modifier</th>
-				<th scope="col">Supprimer</th>-->
+				<th scope="col">Modifier</th>
+				<th scope="col">Supprimer</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -47,14 +46,16 @@
 				<td>{{prescription.cout_total}}€</td>
 				<td>{{prescription.medecin.nom}}</td>
 				<td>{{prescription.patient.nom}}</td>
-				<!--<td>
-					<app-editpatient [idPatient]="patient.id" (updatedPatient)="onPatientUpdate()"></app-editpatient>
+				<td>
+					<button (click)=onEdit(prescription) class="btn btn-primary">
+						<span class="fa fa-edit"></span>
+					</button>
 				</td>
 				<td>
-					<button (click)=onDelete(patient) class="btn btn-danger">
+					<button (click)=onDelete(prescription) class="btn btn-danger">
 						<span class="fa fa-trash-o"></span>
 					</button>
-				</td>-->
+				</td>
 			</tr>
 			</tbody>
 		</table>

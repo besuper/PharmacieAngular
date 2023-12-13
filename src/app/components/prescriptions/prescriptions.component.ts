@@ -27,4 +27,25 @@ export class PrescriptionsComponent {
 		});
 	}
 
+	onEdit(prescription: Prescription) {
+		this.router.navigateByUrl("/prescription/" + prescription.id);
+	}
+
+	onDelete(prescription: Prescription) {
+		let confirmation = confirm('Etes vous sûr de vouloir supprimer ?');
+
+		if (confirmation) {
+			this.prescriptionsService.deletePrescription(prescription).subscribe({
+				next: () => {
+					(window as any).sendAlert("success", "Prescription supprimée");
+
+					this.prescriptions?.splice(this.prescriptions?.indexOf(prescription), 1);
+				},
+				error: (err) => {
+					(window as any).sendAlert("danger", err);
+				}
+			})
+		}
+	}
+
 }

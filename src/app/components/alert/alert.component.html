@@ -1,9 +1,11 @@
-<div id="alerts" class="fixed-top col-3 ms-auto pe-4 pt-5">
+<div id="alerts" class="fixed-top ms-auto pe-4 pt-5">
 	<div *ngFor="let alert of alerts">
-		<div class="alert alert-{{alert.type}} d-flex align-items-center" role="alert">
-			<span class="fa fa-{{alert.icon}}"></span>
-			<div class="ps-2">
-				{{alert.message}}
+		<div class="alert alert-{{alert.type}} d-inline-block float-end" role="alert">
+			<div class="d-inline-flex align-items-center">
+				<span class="fa fa-{{alert.icon}}"></span>
+				<div class="ps-2">
+					{{alert.message}}
+				</div>
 			</div>
 		</div>
 	</div>
