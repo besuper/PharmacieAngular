@@ -45,12 +45,12 @@ export class NewpatientComponent implements OnInit {
 		}
 
 		this.patientService.save(this.patientFormGroup?.value).subscribe({
-			next: () => {
+			next: (patient) => {
 				(window as any).sendAlert("success", "Patient créé");
 
 				this.modal.hide();
 
-				this.addedPatient.emit(this.patientFormGroup?.value);
+				this.addedPatient.emit(patient);
 			}
 		});
 	}

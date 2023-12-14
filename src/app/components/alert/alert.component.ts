@@ -26,7 +26,7 @@ export class AlertComponent implements OnInit {
 
 			setTimeout(() => {
 				this.alerts.pop();
-			}, 50000)
+			}, 5000)
 		};
 	}
 }
