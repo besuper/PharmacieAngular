@@ -1,0 +1,35 @@
+<div>
+	<h3>Médecins disponibles</h3>
+</div>
+
+<ng-container *ngIf="medecins">
+	<ng-container *ngIf="medecins.length > 0 else inconnu">
+		<table class="table table-striped">
+			<thead>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">Matricule</th>
+				<th scope="col">Nom</th>
+				<th scope="col">Prénom</th>
+				<th scope="col">Tel</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr *ngFor="let medecin of medecins">
+				<td>{{medecin.id}}</td>
+				<td>{{medecin.matricule}}</td>
+				<td>{{medecin.nom}}</td>
+				<td>{{medecin.prenom}}</td>
+				<td>{{medecin.tel}}</td>
+			</tr>
+			</tbody>
+		</table>
+	</ng-container>
+
+	<ng-template #inconnu>
+		<hr/>
+
+		<h3 class="pt-4">Aucun médecins</h3>
+	</ng-template>
+
+</ng-container>

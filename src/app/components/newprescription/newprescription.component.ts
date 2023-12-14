@@ -2,10 +2,11 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Patient} from "../../entities/patient.entities";
 import {PrescriptionsService} from "../../servicies/prescription.servicies";
-import {Observable, Subject} from "rxjs";
+import {firstValueFrom, Observable, Subject} from "rxjs";
 import {MedecinsService} from "../../servicies/medecin.servicies";
 import {Medecin} from "../../entities/medecin.entities";
 import {Prescription} from "../../entities/prescription.entities";
+import {PatientsService} from "../../servicies/patients.servicies";
 
 @Component({
 	selector: 'app-newprescription',
@@ -24,7 +25,8 @@ export class NewprescriptionComponent implements OnInit {
 
 	constructor(private fb: FormBuilder,
 				private prescriptionService: PrescriptionsService,
-				private medecinService: MedecinsService) {
+				private medecinService: MedecinsService,
+				private patientService: PatientsService) {
 	}
 
 	ngOnInit(): void {
@@ -80,7 +82,25 @@ export class NewprescriptionComponent implements OnInit {
 		return medecin;
 	}
 
-	onSavePatient() {
+	async findPatient(): Promise<Patient | undefined> {
+		let wantedPatient: string = this.prescriptionFormGroup?.value.patient.split(" ");
+		let wantedName = wantedPatient[0];
+		let wantedFirstname = wantedPatient[1];
+
+		let patients = await firstValueFrom(this.patientService.searchPatients(wantedName));
+		let patient: Patient | undefined = undefined;
+
+		for (const p of patients) {
+			if (wantedFirstname == p.prenom) {
+				patient = p;
+				break;
+			}
+		}
+
+		return patient;
+	}
+
+	async onSavePatient() {
 		this.submitted = true;
 
 		if (this.prescriptionFormGroup?.invalid) {
@@ -95,7 +115,7 @@ export class NewprescriptionComponent implements OnInit {
 		}
 
 		if (!this.patient) {
-			// TODO: Find patient
+			this.patient = await this.findPatient();
 		}
 
 		if (this.patient == undefined) {

@@ -58,13 +58,17 @@ export class EditprescriptionComponent implements OnInit {
 		});
 	}
 
+	seePatient() {
+		this.router.navigateByUrl("/editPatient/" + this.prescription?.patient.id);
+	}
+
 	onAddedInfo(info: Info) {
 		this.infos?.push(info);
 
 		// Mettre a jour le prix total de la prescription
 		let new_cout_total = 0;
 
-		for(let i of this.infos!) {
+		for (let i of this.infos!) {
 			new_cout_total += i.medicament.prixUnitaire * i.quantite;
 		}
 

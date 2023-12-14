@@ -1,4 +1,10 @@
-<h3>Informations de la prescription</h3>
+<div class="d-flex justify-content-between">
+	<h3>Informations de la prescription</h3>
+
+	<ng-container *ngIf="prescription">
+		<button class="btn btn-success" (click)="seePatient()">Voir patient</button>
+	</ng-container>
+</div>
 
 <form [formGroup]="prescriptionFormGroup" *ngIf="prescriptionFormGroup">
 	<div class="form-group">

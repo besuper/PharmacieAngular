@@ -48,4 +48,12 @@ export class PrescriptionsComponent {
 		}
 	}
 
+	onAddedPrescription(prescription: Prescription) {
+		if (this.prescriptions == undefined) {
+			this.prescriptions = [];
+		}
+
+		this.prescriptions.push(prescription);
+	}
+
 }
