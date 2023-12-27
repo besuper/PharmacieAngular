@@ -2,10 +2,14 @@
 	<h3>Rechercher un patient</h3>
 
 	<div class="d-flex flex-row justify-content-between">
-		<form class="d-flex flex-row gap-2 col-4" #f="ngForm" (ngSubmit)="onSearch(f.value)">
-			<input type="text" class="form-control" ngModel name="nom">
-			<button type="submit" class="btn btn-primary">Rechercher</button>
-		</form>
+		<div class="d-flex flex-row gap-2">
+			<form class="d-flex flex-row gap-2" #f="ngForm" (ngSubmit)="onSearch(f.value)">
+				<input type="text" class="form-control" ngModel name="nom">
+				<button type="submit" class="btn btn-primary">Rechercher</button>
+			</form>
+
+			<button class="btn btn-primary" (click)="showAll()">tous</button>
+		</div>
 
 		<!--<button type="submit" class="btn btn-primary" (click)="onNewPatient()">Ajouter un patient</button>-->
 		<app-newpatient (addedPatient)="onAddedPatient($event)"></app-newpatient>

@@ -23,6 +23,14 @@ export class PatientsComponent {
 		});
 	}
 
+	showAll() {
+		this.patientsService.getPatients().subscribe({
+			next: data => {
+				this.patients = data;
+			}
+		});
+	}
+
 	onEdit(patient: Patient) {
 		this.router.navigateByUrl('editPatient/' + patient.id);
 	}
