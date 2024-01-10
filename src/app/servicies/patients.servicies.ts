@@ -24,6 +24,10 @@ export class PatientsService {
 		return this.http.get<Patient[]>(this.host + '/patients/nom=' + nom);
 	}
 
+	searchPatientsByPrescriptionDate(datePrescription: Date): Observable<Patient[]> {
+		return this.http.get<Patient[]>(this.host + '/patients/pres=' + datePrescription);
+	}
+
 	deletePatient(patient: Patient): Observable<void> {
 		return this.http.delete<void>(this.host + '/patients/' + patient.id);
 	}

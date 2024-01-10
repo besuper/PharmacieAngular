@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {Patient} from "../../entities/patient.entities";
 import {PatientsService} from "../../servicies/patients.servicies";
 import {Router} from "@angular/router";
+import {Prescription} from "../../entities/prescription.entities";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
 	selector: 'app-patients',
@@ -12,11 +14,29 @@ export class PatientsComponent {
 
 	patients?: Patient[];
 
-	constructor(private patientsService: PatientsService, private router: Router) {
+	nameForm: FormGroup;
+	prescriptionForm: FormGroup;
+
+	constructor(private fb: FormBuilder, private patientsService: PatientsService, private router: Router) {
+		this.nameForm = this.fb.group({
+			nom: ['', Validators.required]
+		});
+
+		this.prescriptionForm = this.fb.group({
+			date: ['', Validators.required]
+		});
 	}
 
-	onSearch(value: Patient) {
-		this.patientsService.searchPatients(value.nom).subscribe({
+	onSearch() {
+		this.patientsService.searchPatients(this.nameForm.value.nom).subscribe({
+			next: data => {
+				this.patients = data;
+			}
+		});
+	}
+
+	onSearchPrescription() {
+		this.patientsService.searchPatientsByPrescriptionDate(this.prescriptionForm.value.date).subscribe({
 			next: data => {
 				this.patients = data;
 			}

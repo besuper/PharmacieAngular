@@ -3,9 +3,9 @@
 
 	<div class="d-flex flex-row justify-content-between">
 		<div class="d-flex flex-row gap-2">
-			<form class="d-flex flex-row gap-2" #f="ngForm" (ngSubmit)="onSearch(f.value)">
-				<input type="text" class="form-control" ngModel name="nom">
-				<button type="submit" class="btn btn-primary">Rechercher</button>
+			<form class="d-flex flex-row gap-2" [formGroup]="nameForm">
+				<input type="text" class="form-control" formControlName="nom" name="nom">
+				<button type="submit" class="btn btn-primary" (click)="onSearch()">Rechercher</button>
 			</form>
 
 			<button class="btn btn-primary" (click)="showAll()">tous</button>
@@ -13,6 +13,17 @@
 
 		<!--<button type="submit" class="btn btn-primary" (click)="onNewPatient()">Ajouter un patient</button>-->
 		<app-newpatient (addedPatient)="onAddedPatient($event)"></app-newpatient>
+	</div>
+</div>
+
+<div class="pt-4">
+	<h3>Rechercher patients par date de prescription</h3>
+
+	<div class="d-flex flex-row gap-2">
+		<form class="d-flex flex-row gap-2" [formGroup]="prescriptionForm">
+			<input type="date" class="form-control" formControlName="date" name="date">
+			<button type="submit" class="btn btn-primary" (click)="onSearchPrescription()">Rechercher</button>
+		</form>
 	</div>
 </div>
 
@@ -35,11 +46,11 @@
 			</thead>
 			<tbody>
 			<tr *ngFor="let patient of patients">
-				<td>{{patient.id}}</td>
-				<td>{{patient.nss}}</td>
-				<td>{{patient.nom}}</td>
-				<td>{{patient.prenom}}</td>
-				<td>{{patient.dateNaissance|date:"dd-MM-yyyy"}}</td>
+				<td>{{ patient.id }}</td>
+				<td>{{ patient.nss }}</td>
+				<td>{{ patient.nom }}</td>
+				<td>{{ patient.prenom }}</td>
+				<td>{{ patient.dateNaissance|date:"dd-MM-yyyy" }}</td>
 				<td>
 					<button (click)=onEdit(patient) class="btn btn-primary">
 						<span class="fa fa-edit"></span>
@@ -58,7 +69,7 @@
 	<ng-template #inconnu>
 		<hr/>
 
-		<h3 class="pt-4">Nom inconnu</h3>
+		<h3 class="pt-4">Aucun patients</h3>
 	</ng-template>
 
 </ng-container>

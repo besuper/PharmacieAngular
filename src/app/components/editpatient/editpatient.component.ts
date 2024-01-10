@@ -21,6 +21,8 @@ export class EditpatientComponent implements OnInit {
 	patient?: Patient;
 	prescriptions?: Prescription[];
 
+	totalPrescription: string = "0.0";
+
 	constructor(
 		private patientService: PatientsService,
 		private prescriptionService: PrescriptionsService,
@@ -50,6 +52,8 @@ export class EditpatientComponent implements OnInit {
 				this.prescriptions = data.sort((a, b) => {
 					return new Date(b.datePrescription).getTime() - new Date(a.datePrescription).getTime();
 				});
+
+				this.totalPrescription = this.calculateTotalPrescriptions();
 			},
 			error: err => {
 				(window as any).sendAlert("danger", err.headers.get("error"));
@@ -88,6 +92,8 @@ export class EditpatientComponent implements OnInit {
 					(window as any).sendAlert("success", "Prescription supprimée");
 
 					this.prescriptions?.splice(this.prescriptions?.indexOf(prescription), 1);
+
+					this.totalPrescription = this.calculateTotalPrescriptions();
 				},
 				error: (err) => {
 					(window as any).sendAlert("danger", err);
@@ -98,5 +104,19 @@ export class EditpatientComponent implements OnInit {
 
 	onAddedPrescription(prescription: Prescription) {
 		this.prescriptions?.push(prescription);
+	}
+
+	calculateTotalPrescriptions() {
+		let total = 0.0;
+
+		if(this.prescriptions == undefined){
+			return "0.0";
+		}
+
+		for (const pres of this.prescriptions) {
+			total += pres.cout_total;
+		}
+
+		return total.toFixed(2);
 	}
 }
